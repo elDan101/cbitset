@@ -57,6 +57,12 @@ void bitset_clear(bitset_t *bitset) {
   memset(bitset->array,0,sizeof(uint64_t) * bitset->arraysize);
 }
 
+void bitset_invert(bitset_t *bitset){
+  for(size_t i=0; i < bitset->arraysize; i++){
+    bitset->array[i] = ~bitset->array[i];
+  }
+}
+
 void bitset_shift_left(bitset_t *bitset, size_t s) {
   size_t extra_words = s / 64;
   int inword_shift = s % 64;

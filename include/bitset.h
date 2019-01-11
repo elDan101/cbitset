@@ -26,6 +26,9 @@ bitset_t *bitset_create_with_capacity( size_t size );
 /* Free memory. */
 void bitset_free(bitset_t *bitset);
 
+/* Invert all bits in bitset */
+void bitset_invert(bitset_t *bitset);
+
 /* Set all bits to zero. */
 void bitset_clear(bitset_t *bitset);
 
@@ -86,6 +89,14 @@ static inline void bitset_set(bitset_t *bitset,  size_t i ) {
   }
   bitset->array[shiftedi] |= ((uint64_t)1) << (i % 64);
 }
+
+
+/* Flip the ith bit. */
+static inline void bitset_flip(bitset_t *bitset,  size_t i ) {
+  size_t shiftedi = i >> 6;
+  bitset->array[shiftedi] ^= ((uint64_t)1) << (i % 64);
+}
+
 
 /* Get the value of the ith bit.  */
 static inline bool bitset_get(const bitset_t *bitset,  size_t i ) {
